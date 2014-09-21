@@ -20,12 +20,12 @@ type bitReader struct {
 // newBitReader returns a new bitReader reading from r. If r is not
 // already an io.ByteReader, it will be converted via a bufio.Reader.
 func newBitReader(r io.Reader) bitReader {
-	r, ok := r.(io.ByteReader)
+	br, ok := r.(io.ByteReader)
 	if !ok {
-		r = bufio.NewReader(r)
+		br = bufio.NewReader(r)
 	}
 	return bitReader{
-		r: r,
+		r: br,
 		h: xxhash.New(0),
 	}
 }
