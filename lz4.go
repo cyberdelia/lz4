@@ -124,7 +124,9 @@ func (z *writer) Write(p []byte) (int, error) {
 		}
 	}
 
-	z.h.Write(p)
+	if len(p) > 0 {
+		z.h.Write(p)
+	}
 
 	return len(p), nil
 }
@@ -139,6 +141,9 @@ func (z *writer) Close() error {
 }
 
 func lz4CompressSpeed(src []byte, dst []byte, maxSize uint32) (int, error) {
+	if len(src) == 0 {
+		return 0, nil
+	}
 	n := C.LZ4_compress_limitedOutput((*C.char)(unsafe.Pointer(&src[0])), (*C.char)(unsafe.Pointer(&dst[0])), C.int(len(src)), C.int(maxSize))
 	if n <= 0 {
 		return 0, errors.New("lz4: data corruption")
