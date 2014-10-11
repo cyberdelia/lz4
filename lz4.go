@@ -32,8 +32,8 @@ var lz4Header = []byte{
 	0x4, 0x22, 0x4d, 0x18, 0x64, 0x70, 0xb9,
 }
 
-func blockSize(blockId uint32) uint32 {
-	return (1 << (8 + (2 * blockId)))
+func blockSize(blockID uint32) uint32 {
+	return (1 << (8 + (2 * blockID)))
 }
 
 type writer struct {
