@@ -22,7 +22,7 @@ import "github.com/cyberdelia/lz4"
 Download and install:
 
 ```console
-$ go get github.com/cyberdelia/lz4
+$ go get github.com/cyberdelia/lz4/cmd/lz4
 ```
 
 Compress and decompress:
