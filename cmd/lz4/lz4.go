@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"runtime/pprof"
 	"strings"
 
 	"github.com/cyberdelia/lz4"
@@ -14,6 +15,8 @@ import (
 var (
 	uncompress = flag.Bool("d", false, "Decompress.")
 	level      = flag.Int("l", 3, "Compression level.")
+	cpuprofile = flag.String("cpuprofile", "", "write cpu profile to file")
+	memprofile = flag.String("memprofile", "", "write memory profile to this file")
 )
 
 func decompress(path string) error {
@@ -72,6 +75,15 @@ func main() {
 
 	flag.Parse()
 
+	if *cpuprofile != "" {
+		f, err := os.Create(*cpuprofile)
+		if err != nil {
+			log.Fatal(err)
+		}
+		pprof.StartCPUProfile(f)
+		defer pprof.StopCPUProfile()
+	}
+
 	path := flag.Arg(0)
 	if path == "" {
 		flag.Usage()
@@ -86,5 +98,14 @@ func main() {
 	}
 	if err != nil {
 		log.Println("lz4:", err)
+	}
+
+	if *memprofile != "" {
+		f, err := os.Create(*memprofile)
+		if err != nil {
+			log.Fatal(err)
+		}
+		pprof.WriteHeapProfile(f)
+		f.Close()
 	}
 }
