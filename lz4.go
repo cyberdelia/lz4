@@ -2,6 +2,7 @@ package lz4
 
 /*
 #cgo LDFLAGS: -llz4
+#cgo CFLAGS: -O3
 #include "lz4.h"
 #include "lz4hc.h"
 */
