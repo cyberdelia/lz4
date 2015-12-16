@@ -20,7 +20,9 @@ import (
 )
 
 const (
+	// BestSpeed provides speed over better compression.
 	BestSpeed          = 3
+	// BestCompression provides better compression over speed.
 	BestCompression    = 9
 	DefaultCompression = -1
 	lz4EOM             = uint32(0)
