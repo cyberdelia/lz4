@@ -21,10 +21,10 @@ import (
 
 const (
 	// BestSpeed provides speed over better compression.
-	BestSpeed          = 3
+	BestSpeed = 3
 	// BestCompression provides better compression over speed.
 	BestCompression    = 9
-	DefaultCompression = -1
+	defaultCompression = -1
 	lz4EOM             = uint32(0)
 	lz4Magic           = uint32(0x184D2204)
 	lz4BlockSizeID     = 7
@@ -51,14 +51,14 @@ type writer struct {
 // NewWriter creates a new Writer that satisfies writes by compressing data
 // written to w.
 func NewWriter(w io.Writer) io.WriteCloser {
-	z, _ := NewWriterLevel(w, DefaultCompression)
+	z, _ := NewWriterLevel(w, defaultCompression)
 	return z
 }
 
 // NewWriterLevel is like NewWriter but specifies the compression level instead
-// of assuming DefaultCompression.
+// of assuming the default compression level.
 func NewWriterLevel(w io.Writer, level int) (io.WriteCloser, error) {
-	if level < DefaultCompression || level > BestCompression {
+	if level < defaultCompression || level > BestCompression {
 		return nil, fmt.Errorf("lz4: invalid compression level: %d", level)
 	}
 	return &writer{

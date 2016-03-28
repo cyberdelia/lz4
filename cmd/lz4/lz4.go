@@ -45,10 +45,8 @@ func decompress(path string) error {
 func compress(level int, path string) error {
 	if level > lz4.BestCompression {
 		level = lz4.BestCompression
-	} else if level < lz4.BestSpeed {
-		level = lz4.BestSpeed
 	} else {
-		level = lz4.DefaultCompression
+		level = lz4.BestSpeed
 	}
 	input, err := os.Open(path)
 	if err != nil {
