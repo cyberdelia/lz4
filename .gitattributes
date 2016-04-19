@@ -1,2 +1,0 @@
-testdata/pg135.txt filter=lfs diff=lfs merge=lfs -text
-testdata/pg135.txt.lz4 filter=lfs diff=lfs merge=lfs -text
