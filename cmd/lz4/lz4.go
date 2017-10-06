@@ -70,6 +70,7 @@ func compress(level int, path string) error {
 
 func main() {
 	log.SetFlags(0)
+	log.SetPrefix("lz4: ")
 
 	flag.Parse()
 
@@ -95,7 +96,7 @@ func main() {
 		err = compress(*level, path)
 	}
 	if err != nil {
-		log.Println("lz4:", err)
+		log.Println(err)
 	}
 
 	if *memprofile != "" {
